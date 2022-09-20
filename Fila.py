@@ -3,13 +3,16 @@ class FilaVazia(Exception):
 
 
 class FilaArray:
-    def __init__(self, capacidade):
+    def __init__(self, capacidade=10):
         self._dados = [None] * capacidade
         self._tamanho = 0
         self._inicio = 0
 
     def __len__(self):
         return self._tamanho
+
+    def size(self):
+        return self.tamanho
 
     def is_empty(self):
         return self._tamanho == 0
