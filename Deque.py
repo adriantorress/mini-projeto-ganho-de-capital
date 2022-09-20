@@ -31,6 +31,8 @@ class DequeArray:
     def delete_first(self):
         if self.is_empty():
             raise DequeVazio('O Deque está vazio')
+        if 0 < self._tamanho < len(self._dados) // 4:
+            self._aumenta_tamanho(len(self._dados) // 2)
         result = self._dados[self._inicio]
         self._dados[self._inicio] = None
         self._inicio = (self._inicio + 1) % len(self._dados)
@@ -40,6 +42,8 @@ class DequeArray:
     def delete_last(self):
         if self.is_empty():
             raise DequeVazio('O Deque está vazio')
+        if 0 < self._tamanho < len(self._dados) // 4:
+            self._aumenta_tamanho(len(self._dados) // 2)
         result = self._dados[self._final]
         self._dados[self._final] = None
         self._final = (self._final - 1) % len(self._dados)

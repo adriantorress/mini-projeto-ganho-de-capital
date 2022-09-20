@@ -25,6 +25,8 @@ class FilaArray:
     def dequeue(self):
         if self.is_empty():
             raise FilaVazia('A Fila está vazia')
+        if 0 < self._tamanho < len(self._dados) // 4:
+            self._aumenta_tamanho(len(self._dados) // 2)
         result = self._dados[self._inicio]
         self._dados[self._inicio] = None
         self._inicio = (self._inicio + 1) % len(self._dados)
