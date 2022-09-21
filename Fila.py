@@ -3,13 +3,23 @@ class FilaVazia(Exception):
 
 
 class FilaArray:
-    def __init__(self, capacidade=10):
-        self._dados = [None] * capacidade
-        self._tamanho = 0
+    def __init__(self, capacidade=10, dados=None):
+        if dados == None:
+            self._dados = [None] * capacidade
+            self._tamanho = 0
+        else:
+            self._dados = dados
+            self._tamanho = len(dados)
         self._inicio = 0
 
     def __len__(self):
         return self._tamanho
+
+    def fila_to_list(self):
+        lista = []
+        for i in range (self._tamanho):
+            lista.append(self._dados[self._inicio + i])
+        return lista
 
     def size(self):
         return self._tamanho
