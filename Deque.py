@@ -13,7 +13,7 @@ class DequeArray:
         return self._tamanho
 
     def size(self):
-        return self.tamanho
+        return self._tamanho
 
     def is_empty(self):
         return self._tamanho == 0
