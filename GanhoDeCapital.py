@@ -4,19 +4,26 @@ from Deque import *
 operacao = None
 fila = FilaArray()
 saldo = 0
+lucro = 0
 while operacao != 'fim':
     transacao = input("Digite 'compra' ou 'venda', qntd de ações, valor das ações OU FIM para finalizar as transações: ").split()
     if transacao[0].lower() != 'fim':
         operacao = transacao[0].lower(); acao = int(transacao[1]); valor = float(transacao[2])
-    operacao = transacao[0].lower()
+    else: break
 
-    if operacao.lower() == 'compra':
+    if operacao == 'compra':
         for i in range(acao):
             fila.enqueue(valor)
             saldo -= valor
-    else:
+
+    elif operacao == 'venda':        
         for i in range(acao):
-            saldo += valor - fila.dequeue()
+            lucro += valor - fila.dequeue()
+            saldo += valor
+    
+    else:
+        print("Operação inválida! Válidas: 'compra', 'venda' ou 'fim'.")
 
     print(fila)
-    print(saldo)
+    print("Saldo atual: R$ ", saldo)
+    print("Lucro da venda da ação anterior: R$ ", lucro)
