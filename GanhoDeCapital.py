@@ -75,6 +75,8 @@ while operacao != 'fim':
             print()
             continue
 
+    elif transacao[0] == '<':
+        fila = desfaz_operacao(fila.fila_to_list())        
     else:
         break
 
