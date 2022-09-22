@@ -7,6 +7,7 @@ class DequeArray:
         self._dados = [None] * capacidade
         self._tamanho = 0
         self._inicio = 0
+        self.sobra = 0
 
     def __len__(self):
         return self._tamanho
@@ -30,12 +31,10 @@ class DequeArray:
     def delete_first(self):
         if self.is_empty():
             raise DequeVazio('O Deque está vazio')
-        if 0 < self._tamanho <= (len(self._dados) // 4):
-            self._altera_tamanho(len(self._dados) // 2)
         result = self._dados[self._inicio]
         dados = self._dados[:]
         posicao = self._inicio
-        for k in range(self._tamanho):
+        for k in range(self._tamanho-1):
             self._dados[k] = dados[posicao+1]
             posicao = (1 + posicao) % len(dados)
         self._inicio = 0
@@ -45,16 +44,14 @@ class DequeArray:
     def delete_last(self):
         if self.is_empty():
             raise DequeVazio('O Deque está vazio')
-        if 0 < self._tamanho <= (len(self._dados) // 4):
-            self._altera_tamanho(len(self._dados) // 2)
         result = self._dados[(self._tamanho-1)]
         self._dados[(self._tamanho-1)] = None
         self._tamanho -= 1
         return result
 
     def add_first(self, e):
-        if self._tamanho == len(self._dados):
-            self._altera_tamanho(2 * len(self._dados))
+        if self.size() == 10:
+            self.sobra = self.delete_last()
         dados = self._dados[:]
         posicao = self._inicio
         for k in range(self._tamanho+1):
@@ -68,20 +65,12 @@ class DequeArray:
         self._tamanho += 1
 
     def add_last(self, e):
-        if self._tamanho == len(self._dados):
-            self._altera_tamanho(2 * len(self._dados))
+        if self.size() == 10:
+            self.sobra = self.delete_first()
         disponivel = (self._inicio + self._tamanho) % len(self._dados)
         self._dados[disponivel] = e
         self._tamanho += 1
-
-    def _altera_tamanho(self, novo_tamanho):
-        dados_antigos = self._dados
-        self._dados = [None] * novo_tamanho
-        posicao = self._inicio
-        for k in range(self._tamanho):
-            self._dados[k] = dados_antigos[posicao]
-            posicao = (1 + posicao) % len(dados_antigos)
-        self._inicio = 0
+        return self.sobra
 
     def show(self):
         print(self)
