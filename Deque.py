@@ -3,11 +3,10 @@ class DequeVazio(Exception):
 
 
 class DequeArray:
-    def __init__(self, capacidade=10):
+    def __init__(self, capacidade=11):
         self._dados = [None] * capacidade
         self._tamanho = 0
         self._inicio = 0
-        self.sobra = 0
 
     def __len__(self):
         return self._tamanho
@@ -50,8 +49,8 @@ class DequeArray:
         return result
 
     def add_first(self, e):
-        if self.size() == 10:
-            self.sobra = self.delete_last()
+        if self.size() == 11:
+            self.delete_last()
         dados = self._dados[:]
         posicao = self._inicio
         for k in range(self._tamanho+1):
@@ -65,12 +64,11 @@ class DequeArray:
         self._tamanho += 1
 
     def add_last(self, e):
-        if self.size() == 10:
-            self.sobra = self.delete_first()
+        if self.size() == 11:
+            self.delete_first()
         disponivel = (self._inicio + self._tamanho) % len(self._dados)
         self._dados[disponivel] = e
         self._tamanho += 1
-        return self.sobra
 
     def show(self):
         print(self)

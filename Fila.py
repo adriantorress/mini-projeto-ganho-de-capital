@@ -17,8 +17,10 @@ class FilaArray:
 
     def fila_to_list(self):
         lista = []
-        for i in range(self._tamanho):
-            lista.append(self._dados[self._inicio])
+        posicao = self._inicio
+        for k in range(self._tamanho):
+            lista.append(self._dados[posicao])
+            posicao = (1 + posicao) % len(self._dados)
         return lista
 
     def size(self):
