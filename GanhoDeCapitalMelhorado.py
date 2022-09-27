@@ -55,8 +55,11 @@ while operacao != 'fim':
             valor = float(transacao[2])
             lucro = 0
 
+            if acao <= 0 or valor <= 0:
+                print("Os valores inseridos para quantidade de ações e/ou preço devem ser maiores que zero. Insira dados corretos.")
+                continue
             # Compra
-            if operacao == 'compra':
+            elif operacao == 'compra':
                 if desfazer > 0:
                     desfazer -= 1
 
@@ -90,8 +93,10 @@ while operacao != 'fim':
                         acao_vendida_qntd -= acao
                         lucro += (acao*valor)-(acao*acao_vendida_valor)
                         saldo += (acao*valor) 
-                        acao = 0                                     
+                        acao = 0
+                        # Salva oq sobrou das ações numa nova lista, ou seja posição 0                                     
                         restante = [[acao_vendida_qntd, acao_vendida_valor]]
+                        # Junta todo o resto da fila na lista acima.
                         restante.extend(fila.fila_to_list())
                         fila = FilaArray(dados=restante)
 

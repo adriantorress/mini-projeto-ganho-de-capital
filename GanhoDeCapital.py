@@ -51,7 +51,11 @@ while operacao != 'fim':
             valor = float(transacao[2])
             lucro = 0
 
-            if operacao == 'compra':
+            if acao <= 0 or valor <= 0:
+                print("Os valores inseridos para quantidade de ações e/ou preço devem ser maiores que zero. Insira dados corretos.")
+                continue
+
+            elif operacao == 'compra':
                 if desfazer > 0:
                     desfazer -= 1
                 for i in range(acao):
