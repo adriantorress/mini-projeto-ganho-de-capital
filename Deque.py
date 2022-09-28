@@ -69,6 +69,7 @@ class DequeArray:
         self._dados[disponivel] = e
         self._tamanho += 1
 
+
     def show(self):
         print(self)
 

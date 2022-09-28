@@ -60,6 +60,7 @@ class FilaArray:
             posicao = (1 + posicao) % len(dados_antigos)
         self._inicio = 0
 
+
     def show(self):
         print(self)
 

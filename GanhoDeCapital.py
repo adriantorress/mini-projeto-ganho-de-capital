@@ -121,6 +121,12 @@ while operacao != 'fim':
                     fila.fila_to_list(), deque, desfazer)
             except(DequeVazio):
                 print("\nOperação não permitida.\n")
+                valor_acoes = 0
+                for acao in acoes:
+                    valor_acoes += acao[0]*acao[1]
+                print(f'\nSaldo das transações: R${saldo}')
+                print("Quantidade de ações: ", acao_comprada_qntd)
+                print(f'Saldo em ações: R${valor_acoes}\n')
                 continue
 
         acoes = fila.fila_to_list()
@@ -135,6 +141,6 @@ while operacao != 'fim':
         print(f'\nSaldo das transações: R${saldo}')
         print("Quantidade de ações: ", acao_comprada_qntd)
         print(f'Saldo em ações: R${valor_acoes}\n')
-        
+
     except(IndexError):
         print("\nDigite uma transação válida.")
