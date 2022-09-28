@@ -134,9 +134,9 @@ while operacao != 'fim':
         for acao in acoes:
             valor_acoes += acao[0]*acao[1]
         if lucro > 0:
-            print(f"\nLucro da transação anterior: R${lucro}")
+            print(f"\nLucro da transação: R${lucro}")
         elif lucro < 0:
-            print(f"\nPrejuízo da transação anterior: R${-lucro}")
+            print(f"\nPrejuízo da transação: R${-lucro}")
 
         print(f'\nSaldo das transações: R${saldo}')
         print("Quantidade de ações: ", acao_comprada_qntd)
