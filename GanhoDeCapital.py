@@ -144,3 +144,4 @@ while operacao != 'fim':
 
     except(IndexError):
         print("\nDigite uma transação válida.")
+

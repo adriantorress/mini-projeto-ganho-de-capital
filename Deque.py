@@ -176,3 +176,4 @@ if __name__ == "__main__":
     print('Last: ', deque.last())
     print('Tamanho: ', len(deque))
     print('Size: ', deque.size())
+

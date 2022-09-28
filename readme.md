@@ -18,4 +18,3 @@ GanhoDeCapitalMelhorado.py, mas ambos deram o mesmo nível de dor de cabeça par
         ###GanhoDeCapitalMelhorado.py tive que armazenar os valores retirados do objeto em outras variáveis.
     ##Adrian:
         ###Tive bastante dificuldade com a função desfazer, pois ela teve 5 casos que foram tratados para funcionar 100%
-
