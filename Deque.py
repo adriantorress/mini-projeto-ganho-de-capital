@@ -59,7 +59,6 @@ class DequeArray:
             else:
                 self._dados[k] = dados[posicao-1]
             posicao = (1 + posicao) % len(dados)
-
         self._inicio = 0
         self._tamanho += 1
 

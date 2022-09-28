@@ -40,7 +40,6 @@ class FilaArray:
         if 0 < self._tamanho <= (len(self._dados) // 4):
             self._altera_tamanho(len(self._dados) // 2)
         result = self._dados[self._inicio]
-        self._dados[self._inicio] = None
         self._inicio = (self._inicio + 1) % len(self._dados)
         self._tamanho -= 1
         return result
@@ -66,14 +65,14 @@ class FilaArray:
 
     def __str__(self):
         posicao = self._inicio
-        result = "Ações: ["
+        result = "["
         for k in range(self._tamanho):
             if k == (self._tamanho-1):
                 result += str(self._dados[posicao])
             else:
                 result += str(self._dados[posicao]) + ", "
             posicao = (1 + posicao) % len(self._dados)
-        result += f'] Quantidade: {len(self)}\n'
+        result += f']'
         return result
 
 
