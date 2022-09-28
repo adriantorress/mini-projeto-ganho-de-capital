@@ -2,7 +2,7 @@
 
 #### **Integrantes:**    
 
-​	**Heverton de Oliveira Lourenço**
+​	**Heverton de Oliveira Lourenço** e 
 ​    **José Adrian Torres dos Santos**
 
 #### Conteúdos de consulta:
