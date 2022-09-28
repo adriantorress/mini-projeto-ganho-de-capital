@@ -23,12 +23,6 @@ class FilaArray:
             posicao = (1 + posicao) % len(self._dados)
         return lista
 
-    def qntd_acoes(self):
-        acoes = 0
-        for i in range(self._tamanho):
-            acoes += self._dados[i][0]
-        return acoes
-
     def size(self):
         return self._tamanho
 

@@ -3,8 +3,8 @@ from Deque import *
 
 
 # Adiciona os dados no deque
-def add_ctrl_z(estado, saldo, lucro):
-    estado = [estado, saldo, lucro]
+def add_ctrl_z(estado, saldo, lucro, acao_comprada_qntd):
+    estado = [estado, saldo, lucro, acao_comprada_qntd]
     deque.add_last(estado)
 
 
@@ -16,23 +16,26 @@ def desfaz_operacao(fila, deque):
         estado_atual = deque.delete_last()
         saldo = estado_atual[1]
         lucro = estado_atual[2]
+        acao_comprada_qntd = estado_atual[3]
         fila = FilaArray(dados=estado_atual[0])
         deque.add_last(estado_atual)
-        return fila, deque, saldo, lucro
+        return fila, deque, saldo, lucro, acao_comprada_qntd
     except(DequeVazio):
         if len(deque) <= 1 and len(fila) > 1 and desfazer > 9:
             print("\nOperação não permitida.\n")
             fila = FilaArray(dados=removido[0])
             saldo = removido[1]
             lucro = removido[2]
+            acao_comprada_qntd = removido[3]
             if len(deque) == 0:
                 deque.add_last(removido)
-            return fila, deque, saldo, lucro
+            return fila, deque, saldo, lucro, acao_comprada_qntd
         else:
             fila = FilaArray()
             saldo = 0
             lucro = 0
-            return fila, deque, saldo, lucro
+            acao_comprada_qntd = 0
+            return fila, deque, saldo, lucro, acao_comprada_qntd
 
 
 # Inicio:
@@ -42,6 +45,7 @@ saldo = 0
 deque = DequeArray()
 global desfazer
 desfazer = 0
+acao_comprada_qntd = 0
 
 while operacao != 'fim':
     # Input:
@@ -66,10 +70,11 @@ while operacao != 'fim':
                 compra = [acao, valor]
                 saldo -= acao*valor
                 fila.enqueue(compra)
-                add_ctrl_z(fila.fila_to_list(), saldo, lucro)
+                acao_comprada_qntd += acao
+                add_ctrl_z(fila.fila_to_list(), saldo, lucro, acao_comprada_qntd)
 
             # Venda
-            elif operacao == 'venda' and acao <= fila.qntd_acoes():                
+            elif operacao == 'venda' and acao <= acao_comprada_qntd:                
                 if desfazer > 0:
                     desfazer -= 1
                 # Redução das vendas das ações até que se venda a quantidade de ações informada.
@@ -85,6 +90,7 @@ while operacao != 'fim':
                         lucro += (acao_vendida_qntd*valor)-(acao_vendida_qntd*acao_vendida_valor)
                         acao -= acao_vendida_qntd
                         saldo += (acao_vendida_qntd*valor)
+                        acao_comprada_qntd -= acao_vendida_qntd
 
                     # Caso a quantidade de ações removidas da fila seja maior que a quantidade que pretende-se vender.
                     # Faz-se necessario "atualizar" a primeira posição da fila para ser a quantidade restante das ações.
@@ -92,7 +98,8 @@ while operacao != 'fim':
                     else:
                         acao_vendida_qntd -= acao
                         lucro += (acao*valor)-(acao*acao_vendida_valor)
-                        saldo += (acao*valor) 
+                        saldo += (acao*valor)
+                        acao_comprada_qntd -= acao 
                         acao = 0
                         # Salva oq sobrou das ações numa nova lista, ou seja posição 0                                     
                         restante = [[acao_vendida_qntd, acao_vendida_valor]]
@@ -100,11 +107,11 @@ while operacao != 'fim':
                         restante.extend(fila.fila_to_list())
                         fila = FilaArray(dados=restante)
 
-                add_ctrl_z(fila.fila_to_list(), saldo, lucro)
+                add_ctrl_z(fila.fila_to_list(), saldo, lucro, acao_comprada_qntd)
             
-            elif operacao == 'venda' and acao > fila.qntd_acoes():
+            elif operacao == 'venda' and acao > acao_comprada_qntd:
                 print("\nVocê não possui ações suficientes para realizar está operação! Tente novamente.")
-                print(f"Quantidade de ações disponiveis: {fila.qntd_acoes()}")
+                print(f"Quantidade de ações disponiveis: {acao_comprada_qntd}")
 
             else:
                 print("Operação inválida! Válidas: 'compra' ou 'venda'. '<' para desfazer a transação anterior ou 'fim' para finalizar as transações.")
@@ -116,7 +123,7 @@ while operacao != 'fim':
 
     elif transacao[0] == '<':
         try:
-            fila, deque, saldo, lucro = desfaz_operacao(fila.fila_to_list(), deque)
+            fila, deque, saldo, lucro, acao_comprada_qntd = desfaz_operacao(fila.fila_to_list(), deque)
         except(DequeVazio):
             print("\nOperação não permitida.\n")
             print(fila)
